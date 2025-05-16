@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8010:8010"
+    env_file:
+      - ./app/.env
+    volumes:
+      - ./app:/app
+    networks:
+      - data_lake_app_network
+    environment:
+      - PG_URL=postgresql://postgres:postgres@host.docker.internal:5433/projet_fil_rouge
+networks:
+  data_lake_app_network:
+    external: false
